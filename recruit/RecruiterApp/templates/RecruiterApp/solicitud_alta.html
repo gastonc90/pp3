@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{%load static %}
+
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Solicitud de Busquedas</title>
+    </head>
+    <body>
+        {% include 'RecruiterApp/navbar.html' %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        {% block content %}
+
+        {% include 'RecruiterApp/status.html' %}
+
+        <br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>CUSTOMERS:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Crear Posicion</a>
+			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>Posicion</th>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>ULTIMAS POSICIONES</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Create Order</a>
+			<table class="table table-sm">
+				<tr>
+					<th>Posicion</th>
+					<th>Fecha de solicitud</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Quitar</th>
+				</tr>
+
+			</table>
+		</div>
+	</div>
+
+</div>
+        </div>
+        {% endblock %}
+    </body>
+</html>

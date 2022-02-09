@@ -1,0 +1,24 @@
+#logo{
+}
+
+body{
+    background-color: #ebeff5;
+}
+
+
+#total-posiciones{
+    background-color: #4cb4c7;
+}
+
+
+#posiciones-cubiertas{
+    background-color: #7abecc;
+}
+
+#posiciones-pendientes{
+    background-color: #7CD1C0;
+}
+
+#posiciones-denegadas{
+    background-color: #7CD1C0;
+}
