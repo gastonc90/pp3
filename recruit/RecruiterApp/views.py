@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from RecruiterApp.models import *
+from .forms import PosicionForm
 # Create your views here.
 
 
@@ -38,3 +40,51 @@ def estado_busqueda_gerencia(request):
 
 
     return render(request, 'RecruiterApp/estado_busqueda_gerencia.html',contexto)
+
+
+
+
+def CrearPosicion(request):
+    form = PosicionForm()
+
+    if request.method == 'POST':
+        form = PosicionForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/')
+
+    contexto = {'form':form}
+    return render(request, 'RecruiterApp/crear_posicion.html', contexto)
+
+
+
+def ActualizarPosicion(request,pk):
+    posicion_id = SolicitudDePosicion.objects.get(id=pk)
+    form = PosicionForm(instance=posicion_id)
+
+    if request.method == 'POST':
+        form = PosicionForm(request.POST, instance = posicion_id)
+        if form.is_valid():
+            form.save()
+            return redirect('estado_busqueda_gerencia')
+
+    contexto = {'form':form}
+    return render(request, 'RecruiterApp/crear_posicion.html', contexto)
+
+
+
+def EliminarPosicion(request, pk):
+    posicion_id = SolicitudDePosicion.objects.get(id=pk)
+
+    if request.method == 'POST':
+        posicion_id.delete()
+        return redirect('base')
+    contexto = {'posicion':posicion_id}
+    return render(request, 'RecruiterApp/eliminar.html', contexto)
+
+
+
+def VerEmpresa(request):
+    if request.method == 'POST':
+        pass
+    return render(request, 'RecruiterApp/ver_empresa.html')
