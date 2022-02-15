@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from RecruiterApp.models import *
 from .forms import PosicionForm
+from .filters import FiltroPosicion
 # Create your views here.
 
 
@@ -9,22 +10,27 @@ def base(request):
     return render(request,'RecruiterApp/base.html')
 
 
-def nueva_posicion(request):
-    #if request.method == 'POST':
-        #posicion = request.POST["agregar_posicion"]
-        #posiciones_agregadas = Puestos(nombre_puesto = posicion, estado = 'espera', etapa = 'aprobacion' )
-        #posiciones_agregadas.save()
-    return render(request, 'RecruiterApp/solicitud_alta.html')
+def SolicitudAlta(request):
+    posiciones = Puestos.objects.all()
+
+    contexto = {'posiciones':posiciones}
+    return render(request, 'RecruiterApp/solicitud_alta.html', contexto)
 
 
-def eliminar_posicion(request, id):
-    #puesto = get_object_or_404(Puestos, id=id)
-    #puesto.delete()
-    return render(request, 'RecruiterApp/solicitud_alta.html')
+def ListarEmpresas(request, pk):
+    empresas = Empresas.objects.get(id=pk)
+    solicitudes = empresas.solicituddeposicion_set.all()
+    total_solicitudes = solicitudes.count()
+
+    filtros = FiltroPosicion(request.GET, queryset=solicitudes)
+    solicitudes = filtros.qs
+
+    contexto = {'empresas':empresas, 'solicitudes':solicitudes, 'total_solicitudes':total_solicitudes, 'filtros':filtros}
+    return render(request, 'RecruiterApp/empresas.html', contexto)
 
 
 
-def estado_busqueda_gerencia(request):
+def DashboardGerencia(request):
     empresas = Empresas.objects.all()
     solicitud_posicion = SolicitudDePosicion.objects.all()
 
@@ -37,9 +43,7 @@ def estado_busqueda_gerencia(request):
     contexto = {'solicitud_posicion':solicitud_posicion,
     'total_posiciones':total_posiciones, 'aprobadas':aprobadas,
     'denegadas':denegadas, 'espera':espera, 'empresas':empresas}
-
-
-    return render(request, 'RecruiterApp/estado_busqueda_gerencia.html',contexto)
+    return render(request, 'RecruiterApp/dashboard_gerencia.html',contexto)
 
 
 
@@ -79,12 +83,6 @@ def EliminarPosicion(request, pk):
     if request.method == 'POST':
         posicion_id.delete()
         return redirect('base')
+
     contexto = {'posicion':posicion_id}
     return render(request, 'RecruiterApp/eliminar.html', contexto)
-
-
-
-def VerEmpresa(request):
-    if request.method == 'POST':
-        pass
-    return render(request, 'RecruiterApp/ver_empresa.html')

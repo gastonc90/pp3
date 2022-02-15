@@ -10,7 +10,7 @@
         {% include 'RecruiterApp/navbar.html' %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-                                            {% block content %}
+        {% block content %}
         {% include 'RecruiterApp/status.html' %}
 
 
@@ -18,7 +18,7 @@
 
 <div class="row">
 	<div class="col-md-5">
-		<h5>Clientes</h5>
+		<h5 align="left">Clientes</h5>
 		<hr>
 		<div class="card card-body">
 			<a class="btn btn-primary  btn-sm btn-block" href="">Crear Clientes</a>
@@ -31,15 +31,15 @@
                     <tr>
                         <td>{{e.nombre_empresa}}</td>
                         <td>{{e.nombre_manager}}</td>
-                        <td><a class="btn btn-sm btn-info" href="{% url 'ver_empresa' %}">Ver</a></td>
+                        <td><a class="btn btn-sm btn-info" href="{% url 'empresas' e.id %}">Ver</a></td>
                     </tr>
-                {% endfor %}
+        {% endfor %}
             </table>
 		</div>
 	</div>
 
 	<div class="col-md-7">
-		<h5>Ultimas Posiciones</h5>
+		<h5  align="left">Ultimas Posiciones</h5>
 		<hr>
 		<div class="card card-body">
 			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'crear_posicion' %}">Crear Posicion</a>

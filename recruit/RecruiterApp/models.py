@@ -13,6 +13,8 @@ class Empresas(models.Model):
         return self.nombre_empresa
 
 
+
+
 class Puestos(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre_puesto = models.CharField(max_length=30)
@@ -22,6 +24,7 @@ class Puestos(models.Model):
 
     def __str__(self):
         return self.nombre_puesto
+
 
 
 
@@ -36,12 +39,15 @@ class Archivos(models.Model):
 
 
 
+
 class Comentarios(models.Model):
     id = models.BigAutoField(primary_key=True)
     comentario = models.CharField(max_length=250)
 
     def __str__(self):
         return self.comentario
+
+
 
 
 class SolicitudDePosicion(models.Model):
