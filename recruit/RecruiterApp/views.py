@@ -67,7 +67,7 @@ def ActualizarPosicion(request,pk):
     form = PosicionForm(instance=posicion_id)
 
     if request.method == 'POST':
-        form = PosicionForm(request.POST, instance = posicion_id)
+        form = PosicionForm(request.POST, instance=posicion_id)
         if form.is_valid():
             form.save()
             return redirect('estado_busqueda_gerencia')

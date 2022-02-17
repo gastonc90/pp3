@@ -1,9 +1,13 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
 # Create your models here.
+
+
+User = get_user_model()
 
 class Empresas(models.Model):
     id = models.BigAutoField(primary_key=True)
+    usuario = models.ForeignKey(User, null=True, on_delete=models.SET_NULL )
     nombre_empresa = models.CharField(max_length=30)
     nombre_manager = models.CharField(max_length=30)
     telefono = models.FloatField(default=0)
@@ -14,7 +18,6 @@ class Empresas(models.Model):
 
 
 
-
 class Puestos(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre_puesto = models.CharField(max_length=30)
@@ -22,9 +25,9 @@ class Puestos(models.Model):
     fecha_validacion = models.DateTimeField(auto_now_add=False)
 
 
+
     def __str__(self):
         return self.nombre_puesto
-
 
 
 
@@ -36,16 +39,6 @@ class Archivos(models.Model):
 
     def __str__(self):
         return self.titulo
-
-
-
-
-class Comentarios(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    comentario = models.CharField(max_length=250)
-
-    def __str__(self):
-        return self.comentario
 
 
 
