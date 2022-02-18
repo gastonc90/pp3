@@ -18,11 +18,10 @@
 
 <div class="row">
 	<div class="col-md-5">
-		<h5 align="left">Clientes</h5>
+		<h5 align="center">Clientes</h5>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Crear Clientes</a>
-			<table class="table table-sm">
+			<table class="table table-m">
 				<tr>
 					<th>Clientes</th>
 					<th>Manager</th>
@@ -39,28 +38,27 @@
 	</div>
 
 	<div class="col-md-7">
-		<h5  align="left">Ultimas Posiciones</h5>
+		<h5  align="center">Ultimas Posiciones</h5>
 		<hr>
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'crear_posicion' %}">Crear Posicion</a>
-			<table class="table table-sm">
+			<table class="table table-m">
 				<tr>
+                    <th>Empresa</th>
                     <th>Id</th>
 					<th>Posicion</th>
 					<th>Estado</th>
 					<th>Etapa</th>
                     <th>Seniority</th>
-					<th>Update</th>
 					<th>Quitar</th>
 				</tr>
                 {% for i in solicitud_posicion %}
                     <tr>
+                        <td>{{i.empresas.nombre_empresa}}</td>
                         <td>{{i.id}}</td>
                         <td>{{i.puesto}}</td>
                         <td>{{i.estado}}</td>
                         <td>{{i.etapa}}</td>
                         <td>{{i.seniority}}</td>
-                        <td><a class="btn btn-sm btn-info" href="{% url 'actualizar_posicion' i.id %}">Actualizar</a></td>
                         <td><a class="btn btn-sm btn-danger" href="{% url 'eliminar' i.id %}">Eliminar</a></td>
                     </tr>
                 {% endfor %}

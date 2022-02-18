@@ -112,9 +112,10 @@ def RecruiterTool(request):
 
     aprobadas = solicitud_posicion.filter(estado='Aprobado').count()
     espera = solicitud_posicion.filter(estado='Esperando').count()
+    denegadas = solicitud_posicion.filter(estado='Denegado').count()
 
     contexto = {'solicitud_posicion':solicitud_posicion,
-    'total_posiciones':total_posiciones, 'empresas':empresas, 'aprobadas':aprobadas, 'espera':espera}
+    'total_posiciones':total_posiciones, 'empresas':empresas, 'aprobadas':aprobadas, 'espera':espera, 'denegadas':denegadas}
 
     return render(request, 'RecruiterApp/recruiter.html', contexto)
 
