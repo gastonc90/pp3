@@ -1,57 +1,83 @@
-<!DOCTYPE html>
-{%load static %}
+{%  extends 'RecruiterApp/base.html' %}
 
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>Solicitud de Busquedas</title>
-    </head>
-    <body>
-        {% include 'RecruiterApp/navbar.html' %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% block content %}
 
-        {% block content %}
-
-        {% include 'RecruiterApp/status.html' %}
-
-        <br>
+	<br>
 
 <div class="row">
-	<div class="col-md-5">
-		<h5>CUSTOMERS:</h5>
-		<hr>
+	<div class="col-md">
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Crear Posicion</a>
-			<table class="table table-sm">
-				<tr>
-					<th></th>
-					<th>Posicion</th>
-				</tr>
+			<h5>Empresa:</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'carga_ternas' %}">Solicitar Posicion</a>
 
-			</table>
 		</div>
 	</div>
 
-	<div class="col-md-7">
-		<h5>ULTIMAS POSICIONES</h5>
-		<hr>
+	<div class="col-md">
 		<div class="card card-body">
-			<a class="btn btn-primary  btn-sm btn-block" href="">Create Order</a>
-			<table class="table table-sm">
-				<tr>
-					<th>Posicion</th>
-					<th>Fecha de solicitud</th>
-					<th>Status</th>
-					<th>Update</th>
-					<th>Quitar</th>
-				</tr>
+			<h5>Informacion de Contacto</h5>
+			<hr>
+            <p>Manager: {{empresas.nombre_manager}}</p>
+			<p>Email: {{empresas.email}}</p>
+			<p>Phone: {{empresas.telefono}}</p>
+		</div>
+	</div>
 
-			</table>
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Posiciones</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{total_solicitudes}}</h1>
+		</div>
+	</div>
+</div>
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get">
+		    <button class="btn btn-primary" type="submit">Buscar</button>
+			{{filtros.form}}
+		  </form>
 		</div>
 	</div>
 
 </div>
-        </div>
-        {% endblock %}
-    </body>
-</html>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+                    <th>Id</th>
+					<th>Posicion</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+					<th>Etapa</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+
+				{% for solicitud in solicitudes %}
+
+				<tr>
+                    <td>{{solicitud.id}}</td>
+					<td>{{solicitud.puesto}}</td>
+					<td>{{solicitud.fecha_de_carga}}</td>
+					<td>{{solicitud.estado}}</td>
+					<td>{{solicitud.etapa}}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'actualizar_posicion' solicitud.id %}">Actualizar</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'eliminar' solicitud.id %}">Eliminar</a></td>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

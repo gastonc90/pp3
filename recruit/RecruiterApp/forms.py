@@ -7,3 +7,9 @@ class PosicionForm(ModelForm):
 	class Meta:
 		model = SolicitudDePosicion
 		fields = '__all__'
+
+
+class ManagerPosicionForm(ModelForm):
+	class Meta:
+		model = SolicitudDePosicion
+		fields = ['puesto', 'estado', 'nota']

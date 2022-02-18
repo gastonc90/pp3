@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from RecruiterApp.models import *
-from .forms import PosicionForm
+from .models import *
+from .forms import PosicionForm, ManagerPosicionForm
 from .filters import FiltroPosicion
 # Create your views here.
 
@@ -10,12 +10,18 @@ def base(request):
     return render(request,'RecruiterApp/base.html')
 
 
+
+
+
+#Dashboard principal del Manager, ver solicitudes de posicion de su empresa.
+
 def SolicitudAlta(request):
-    posiciones = Puestos.objects.all()
 
-    contexto = {'posiciones':posiciones}
-    return render(request, 'RecruiterApp/solicitud_alta.html', contexto)
+    return render(request, 'RecruiterApp/solicitud_alta.html')
 
+
+
+#Dashboard principal del Gerente, ver solicitudes de posicion por empresa.
 
 def ListarEmpresas(request, pk):
     empresas = Empresas.objects.get(id=pk)
@@ -29,6 +35,8 @@ def ListarEmpresas(request, pk):
     return render(request, 'RecruiterApp/empresas.html', contexto)
 
 
+
+#Dashboard principal del Gerente
 
 def DashboardGerencia(request):
     empresas = Empresas.objects.all()
@@ -47,6 +55,7 @@ def DashboardGerencia(request):
 
 
 
+#Crear todas las posiciones (Dashboard Gerente)
 
 def CrearPosicion(request):
     form = PosicionForm()
@@ -61,6 +70,23 @@ def CrearPosicion(request):
     return render(request, 'RecruiterApp/crear_posicion.html', contexto)
 
 
+#Crear posiciones Manager)
+
+def ManagerPosicion(request):
+    form = ManagerPosicionForm()
+
+    if request.method == 'POST':
+        form = ManagerPosicionForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('/')
+
+    contexto = {'form':form}
+    return render(request, 'RecruiterApp/carga_ternas.html', contexto)
+
+
+
+#Actualizar posiciones (Gerente)
 
 def ActualizarPosicion(request,pk):
     posicion_id = SolicitudDePosicion.objects.get(id=pk)
@@ -76,6 +102,9 @@ def ActualizarPosicion(request,pk):
     return render(request, 'RecruiterApp/crear_posicion.html', contexto)
 
 
+
+
+#Eliminar posiciones (Gerente)
 
 def EliminarPosicion(request, pk):
     posicion_id = SolicitudDePosicion.objects.get(id=pk)

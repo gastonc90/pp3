@@ -56,11 +56,19 @@ class SolicitudDePosicion(models.Model):
                 ('Entevista','Entrevista'),
     )
 
+    SENIORITY = (('Junior', 'Junior'),
+                ('Semi Senior', 'Semi Senior'),
+                ('Senior','Senior'),
+                ('Gerente','Gerente'),
+    )
+
     puesto = models.ForeignKey(Puestos, null=True, on_delete=models.SET_NULL)
     empresas = models.ForeignKey(Empresas, null=True, on_delete=models.SET_NULL)
     fecha_de_carga = models.DateTimeField(auto_now_add=True, null=True)
-    estado = models.CharField(max_length=30, null=True, choices=STATUS)
-    etapa = models.CharField(max_length=30, null=True, choices=ETAPAS)
+    estado = models.CharField(max_length=30, default='Esperando', choices=STATUS)
+    etapa = models.CharField(max_length=30, default='Aprobacion', choices=ETAPAS)
+    seniority = models.CharField(max_length=30, null=True, choices=SENIORITY)
+    nota = models.TextField(max_length=300, default='vacio')
 
     def __str__(self):
 	       return self.puesto.nombre_puesto
