@@ -12,4 +12,5 @@ urlpatterns = [
     path('solicitud_alta', views.SolicitudAlta, name='solicitud_alta'),
     path('eliminar/<str:pk>/', views.EliminarPosicion, name='eliminar'),
     path('carga_ternas/', views.ManagerPosicion, name='carga_ternas'),
+    path('recruiter/', views.RecruiterTool, name='recruiter'),
 ]

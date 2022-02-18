@@ -53,7 +53,7 @@ class SolicitudDePosicion(models.Model):
 
     ETAPAS = (('Administracion', 'Administracion'),
                 ('Aprobacion', 'Aprobacion'),
-                ('Entevista','Entrevista'),
+                ('Entrevista','Entrevista'),
     )
 
     SENIORITY = (('Junior', 'Junior'),
@@ -66,9 +66,9 @@ class SolicitudDePosicion(models.Model):
     empresas = models.ForeignKey(Empresas, null=True, on_delete=models.SET_NULL)
     fecha_de_carga = models.DateTimeField(auto_now_add=True, null=True)
     estado = models.CharField(max_length=30, default='Esperando', choices=STATUS)
-    etapa = models.CharField(max_length=30, default='Aprobacion', choices=ETAPAS)
+    etapa = models.CharField(max_length=30, null=True, choices=ETAPAS)
     seniority = models.CharField(max_length=30, null=True, choices=SENIORITY)
-    nota = models.TextField(max_length=300, default='vacio')
+    nota = models.TextField(max_length=300, default='Escriba información breve de utilidad en torno a la posición')
 
     def __str__(self):
 	       return self.puesto.nombre_puesto

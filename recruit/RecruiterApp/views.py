@@ -96,15 +96,31 @@ def ActualizarPosicion(request,pk):
         form = PosicionForm(request.POST, instance=posicion_id)
         if form.is_valid():
             form.save()
-            return redirect('estado_busqueda_gerencia')
+            return redirect('dashboard_gerencia')
 
     contexto = {'form':form}
     return render(request, 'RecruiterApp/crear_posicion.html', contexto)
 
 
 
+#Vista del recruiter
+def RecruiterTool(request):
+    empresas = Empresas.objects.all()
+    solicitud_posicion = SolicitudDePosicion.objects.filter(etapa='Entrevista')
 
-#Eliminar posiciones (Gerente)
+    total_posiciones = solicitud_posicion.count()
+
+    aprobadas = solicitud_posicion.filter(estado='Aprobado').count()
+    espera = solicitud_posicion.filter(estado='Esperando').count()
+
+    contexto = {'solicitud_posicion':solicitud_posicion,
+    'total_posiciones':total_posiciones, 'empresas':empresas, 'aprobadas':aprobadas, 'espera':espera}
+
+    return render(request, 'RecruiterApp/recruiter.html', contexto)
+
+
+
+#Eliminar posiciones
 
 def EliminarPosicion(request, pk):
     posicion_id = SolicitudDePosicion.objects.get(id=pk)
