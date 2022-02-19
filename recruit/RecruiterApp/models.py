@@ -31,14 +31,6 @@ class Puestos(models.Model):
 
 
 
-class Archivos(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    titulo = models.CharField(max_length=50)
-    archivo_cargado = models.FileField(upload_to="media/")
-    fecha_de_carga = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.titulo
 
 
 
@@ -69,6 +61,8 @@ class SolicitudDePosicion(models.Model):
     etapa = models.CharField(max_length=30, null=True, choices=ETAPAS)
     seniority = models.CharField(max_length=30, null=True, choices=SENIORITY)
     nota = models.TextField(max_length=300, default='Escriba información breve de utilidad en torno a la posición')
+    cargar_archivos = models.FileField(upload_to="media/", null=True, blank=True)
+
 
     def __str__(self):
 	       return self.puesto.nombre_puesto

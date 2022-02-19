@@ -88,12 +88,12 @@ def ManagerPosicion(request):
 
 #Actualizar posiciones (Gerente)
 
-def ActualizarPosicion(request,pk):
+def ActualizarPosicion(request, pk):
     posicion_id = SolicitudDePosicion.objects.get(id=pk)
     form = PosicionForm(instance=posicion_id)
 
     if request.method == 'POST':
-        form = PosicionForm(request.POST, instance=posicion_id)
+        form = PosicionForm(request.POST, request.FILES, instance=posicion_id)
         if form.is_valid():
             form.save()
             return redirect('dashboard_gerencia')
