@@ -8,4 +8,4 @@ class FiltroPosicion(django_filters.FilterSet):
     class Meta:
         model = SolicitudDePosicion
         filter = '__all__'
-        exclude = ['empresas', 'fecha_de_carga', 'nota', 'cargar_archivos']
+        exclude = ['empresas', 'fecha_de_carga', 'nota', 'cargar_archivos', 'nombre', 'apellido', 'direccion', 'email']

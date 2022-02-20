@@ -1,27 +1,29 @@
 {% extends 'RecruiterApp/base.html' %}
 
+<<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<body>
 
+		{% block content %}
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card card-body">
 
-{% block content %}
+					<form action="" method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+						{{ form.management_form }}
+						{% for f in form %}
+							{{f}}
+							<hr>
+						{% endfor %}
 
-<div class="row">
-	<div class="col-md-6">
-		<div class="card card-body">
+						<input type="submit" name="Crear">
+					</form>
 
-			<form action="" method="POST" enctype="multipart/form-data">
-				{% csrf_token %}
-				{{ form.management_form }}
-				{% for f in form %}
-					{{f}}
-					<hr>
-				{% endfor %}
-
-				<input type="submit" name="Crear">
-			</form>
-
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
+		{% endblock %}
 
-
-{% endblock %}
+</body>
+</html>

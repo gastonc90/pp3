@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-from .forms import PosicionForm, ManagerPosicionForm
+from .forms import PosicionForm, ManagerPosicionForm, FormularioIngreso
 from .filters import FiltroPosicion
 # Create your views here.
 
@@ -14,7 +14,6 @@ def base(request):
 
 
 #Dashboard principal del Manager, ver solicitudes de posicion de su empresa.
-
 def SolicitudAlta(request):
 
     return render(request, 'RecruiterApp/solicitud_alta.html')
@@ -22,7 +21,6 @@ def SolicitudAlta(request):
 
 
 #Dashboard principal del Gerente, ver solicitudes de posicion por empresa.
-
 def ListarEmpresas(request, pk):
     empresas = Empresas.objects.get(id=pk)
     solicitudes = empresas.solicituddeposicion_set.all()
@@ -56,7 +54,6 @@ def DashboardGerencia(request):
 
 
 #Crear todas las posiciones (Dashboard Gerente)
-
 def CrearPosicion(request):
     form = PosicionForm()
 
@@ -71,7 +68,6 @@ def CrearPosicion(request):
 
 
 #Crear posiciones Manager)
-
 def ManagerPosicion(request):
     form = ManagerPosicionForm()
 
@@ -87,7 +83,6 @@ def ManagerPosicion(request):
 
 
 #Actualizar posiciones (Gerente)
-
 def ActualizarPosicion(request, pk):
     posicion_id = SolicitudDePosicion.objects.get(id=pk)
     form = PosicionForm(instance=posicion_id)
@@ -122,7 +117,6 @@ def RecruiterTool(request):
 
 
 #Eliminar posiciones
-
 def EliminarPosicion(request, pk):
     posicion_id = SolicitudDePosicion.objects.get(id=pk)
 
@@ -132,3 +126,42 @@ def EliminarPosicion(request, pk):
 
     contexto = {'posicion':posicion_id}
     return render(request, 'RecruiterApp/eliminar.html', contexto)
+
+
+
+#Gestionar solicitudes en Administración
+def GestionarAdministracion(request):
+
+    empresas = Empresas.objects.all()
+    solicitud_posicion = SolicitudDePosicion.objects.filter(etapa='Administracion')
+
+    total_posiciones = solicitud_posicion.count()
+
+    aprobadas = solicitud_posicion.filter(estado='Aprobado').count()
+    espera = solicitud_posicion.filter(estado='Esperando').count()
+    denegadas = solicitud_posicion.filter(estado='Denegado').count()
+
+    contexto = {'empresas':empresas, 'solicitud_posicion':solicitud_posicion,
+    'total_posiciones':total_posiciones, 'aprobadas':aprobadas, 'espera':espera, 'denegadas':denegadas}
+    return render(request, 'RecruiterApp/administracion.html', contexto)
+
+
+#Ingresar personal
+
+def FormularioIngresos(request, pk):
+
+    solicitud = SolicitudDePosicion.objects.get(id=pk)
+    #id_solicitud = solicitud.id
+    #empresa = solicitud.empresas
+    #form = FormularioIngreso()
+    form = FormularioIngreso(instance=solicitud)
+
+    if request.method == 'POST':
+        form = FormularioIngreso(request.POST, instance=solicitud)
+        if form.is_valid():
+            form.save()
+            return redirect('administracion')
+
+    contexto = {'form':form}
+
+    return render(request,'RecruiterApp/ingresos.html', contexto)

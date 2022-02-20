@@ -4,10 +4,11 @@ from .models import SolicitudDePosicion
 from django.forms import ClearableFileInput
 
 
+
 class PosicionForm(ModelForm):
 	class Meta:
 		model = SolicitudDePosicion
-		fields = '__all__'
+		fields = ['puesto', 'empresas', 'estado', 'etapa', 'seniority', 'nota', 'cargar_archivos']
 		widgets = {
 			'cargar_archivos':ClearableFileInput(attrs={'multiple':True}),
 		}
@@ -19,11 +20,7 @@ class ManagerPosicionForm(ModelForm):
 		fields = ['puesto', 'estado', 'nota']
 
 
-
-#class CargaArchivos(ModelForm):
-	#class Meta:
-		#model = SolicitudDePosicion
-		#fields = ['cargar_archivos']
-		#widgets = {
-			#'cargar_archivos':ClearableFileInput(attrs={'multiple':True}),
-		#}
+class FormularioIngreso(ModelForm):
+	class Meta:
+		model = SolicitudDePosicion
+		fields = ['id','puesto', 'empresas', 'seniority', 'nombre', 'apellido', 'direccion','email']
