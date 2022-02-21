@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('RecruiterApp.urls')),
+    path('', include('Login.urls')),
      #Enlace a urls.py de la aplicación
 ]

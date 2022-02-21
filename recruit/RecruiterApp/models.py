@@ -9,6 +9,7 @@ User = get_user_model()
 
 
 
+
 class Empresas(models.Model):
     id = models.BigAutoField(primary_key=True)
     usuario = models.ForeignKey(User, null=True, on_delete=models.SET_NULL )
