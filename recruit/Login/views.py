@@ -5,12 +5,13 @@ from .forms import NuevoUsuario
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate,logout,login
 from django.contrib import messages
+from .decorator import usuario_no_autenticado
 # Create your views here.
 
 
 
 
-
+@usuario_no_autenticado
 def RegistroUsuario(request):
     form = NuevoUsuario()
     if request.method == 'POST':
@@ -27,7 +28,7 @@ def RegistroUsuario(request):
 
 
 
-
+@usuario_no_autenticado
 def PaginaLogin(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)

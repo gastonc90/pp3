@@ -1,29 +1,48 @@
+<!DOCTYPE html>
 {% extends 'RecruiterApp/base.html' %}
 
-<<!DOCTYPE html>
 <html lang="en" dir="ltr">
+
+{% block content %}
+{% include 'RecruiterApp/status.html' %}
 	<body>
 
-		{% block content %}
-		<div class="row">
-			<div class="col-md-6">
-				<div class="card card-body">
+		<div class="col-md-7">
+			<h5  align="center">Ultimas Posiciones</h5>
+			<hr>
+			<div class="card card-body">
+				<table class="table table-m">
+					<tr>
+						<th>Empresa</th>
+						<th>Posicion</th>
+						<th>Id</th>
+						<th>Estado</th>
+						<th>Etapa</th>
+						<th>Seniority</th>
+						<th>Curriculum</th>
+						<th>Quitar</th>
+					</tr>
+					{% for i in solicitudes %}
+						<tr>
+							<td>{{i.empresas}}</td>
+							<td>{{i.puesto}}</td>
+							<td>{{i.id}}</td>
+							<td>{{i.estado}}</td>
+							<td>{{i.etapa}}</td>
+							<td>{{i.seniority}}</td>
 
-					<form action="" method="POST">
-						{% csrf_token %}
-						{{ form.management_form }}
-						{% for f in form %}
-							{{f}}
-							<hr>
-						{% endfor %}
-
-						<input type="submit" name="Solicitar">
-					</form>
-
-				</div>
+							{% if i.cargar_archivos %}
+							<td><a class="btn btn-primary btn-sm" href="{{i.cargar_archivos.url}}">Descargar</a></td>
+							{% else %}
+							<td><a class="btn btn-warning btn-sm" href="#">Vacio</a></td>
+							{% endif %}
+							<td><a class="btn btn-sm btn-danger" href="{% url 'eliminar' i.id %}">Eliminar</a></td>
+						</tr>
+					{% endfor %}
+				</table>
 			</div>
 		</div>
-		{% endblock %}
 
 </body>
+{% endblock %}
 </html>

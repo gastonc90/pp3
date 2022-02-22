@@ -4,6 +4,7 @@ from .models import *
 from .forms import PosicionForm, ManagerPosicionForm, FormularioIngreso
 from .filters import FiltroPosicion
 from django.contrib.auth.decorators import login_required
+from Login.decorator import vistas_autorizadas
 
 # Create your views here.
 
@@ -17,18 +18,20 @@ def base(request):
 
 #Dashboard principal del Manager, ver solicitudes de posicion de su empresa.
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['managers','admin'])
 def SolicitudAlta(request):
-    form = PosicionForm()
+    empresas = request.user.empresas_set.all()
+    solicitudes = empresas[0].solicituddeposicion_set.all()
 
 
-
-    contexto = {'form':form}
+    contexto = {'solicitudes':solicitudes, 'empresas':empresas}
     return render(request, 'RecruiterApp/carga_ternas.html', contexto)
 
 
 
 #Dashboard principal del Gerente, ver solicitudes de posicion por empresa.
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['admin'])
 def ListarEmpresas(request, pk):
     empresas = Empresas.objects.get(id=pk)
     solicitudes = empresas.solicituddeposicion_set.all()
@@ -44,6 +47,7 @@ def ListarEmpresas(request, pk):
 
 #Dashboard principal del Gerente
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['admin'])
 def DashboardGerencia(request):
     empresas = Empresas.objects.all()
     solicitud_posicion = SolicitudDePosicion.objects.all()
@@ -63,6 +67,7 @@ def DashboardGerencia(request):
 
 #Crear todas las posiciones (Dashboard Gerente)
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['recruiter','admin'])
 def CrearPosicion(request):
     form = PosicionForm()
 
@@ -78,6 +83,7 @@ def CrearPosicion(request):
 
 #Crear posiciones Manager)
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['recruiter','admin'])
 def ManagerPosicion(request):
     form = ManagerPosicionForm()
 
@@ -94,6 +100,7 @@ def ManagerPosicion(request):
 
 #Actualizar posiciones (Gerente)
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['recruiter','admin'])
 def ActualizarPosicion(request, pk):
     posicion_id = SolicitudDePosicion.objects.get(id=pk)
     form = PosicionForm(instance=posicion_id)
@@ -111,6 +118,7 @@ def ActualizarPosicion(request, pk):
 
 #Vista del recruiter
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['recruiter','admin'])
 def RecruiterTool(request):
     empresas = Empresas.objects.all()
     solicitud_posicion = SolicitudDePosicion.objects.filter(etapa='Entrevista')
@@ -130,6 +138,7 @@ def RecruiterTool(request):
 
 #Eliminar posiciones
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['recruiter','admin'])
 def EliminarPosicion(request, pk):
     posicion_id = SolicitudDePosicion.objects.get(id=pk)
 
@@ -144,6 +153,7 @@ def EliminarPosicion(request, pk):
 
 #Gestionar solicitudes en Administración
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['administracion','admin'])
 def GestionarAdministracion(request):
 
     empresas = Empresas.objects.all()
@@ -162,6 +172,7 @@ def GestionarAdministracion(request):
 
 #Ingresar personal
 @login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['administracion','admin'])
 def FormularioIngresos(request, pk):
 
     solicitud = SolicitudDePosicion.objects.get(id=pk)
