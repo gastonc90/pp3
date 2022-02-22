@@ -49,6 +49,7 @@
 					<th>Posicion</th>
 					<th>Estado</th>
 					<th>Etapa</th>
+                    <th>Resolucion</th>
 					<th>Update</th>
 					<th>Quitar</th>
 				</tr>
@@ -58,6 +59,7 @@
                         <td>{{i.puesto}}</td>
                         <td>{{i.estado}}</td>
                         <td>{{i.etapa}}</td>
+                        <td>{{i.resolucion}}</td>
                         <td><a class="btn btn-sm btn-info" href="{% url 'actualizar_posicion' i.id %}">Actualizar</a></td>
                         <td><a class="btn btn-sm btn-danger" href="{% url 'eliminar' i.id %}">Eliminar</a></td>
                     </tr>

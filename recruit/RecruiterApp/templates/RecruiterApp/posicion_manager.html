@@ -1,0 +1,32 @@
+
+
+{% load static %}
+
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        {% include 'RecruiterApp/navbar.html' %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        {% block content %}
+<br>
+<br>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.management_form }}
+            {% for f in form %}
+                {{f}}
+                <hr>
+            {% endfor %}
+
+        <input type="submit" name="Crear">
+        </form>
+
+
+
+        {% endblock %}
+
+    </body>

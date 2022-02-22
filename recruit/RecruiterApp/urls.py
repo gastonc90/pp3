@@ -17,6 +17,7 @@ urlpatterns = [
     path('recruiter/', views.RecruiterTool, name='recruiter'),
     path('administracion/', views.GestionarAdministracion, name='administracion'),
     path('ingresos/<str:pk>/', views.FormularioIngresos, name='ingresos'),
+    path('posicion_manager/', views.SolicitudManager, name='posicion_manager'),
 ]
 
 

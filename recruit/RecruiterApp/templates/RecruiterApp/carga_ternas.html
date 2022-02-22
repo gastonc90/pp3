@@ -11,6 +11,7 @@
 			<h5  align="center">Ultimas Posiciones</h5>
 			<hr>
 			<div class="card card-body">
+				<a class="btn btn-primary  btn-sm btn-block" href="{% url 'posicion_manager' %}">Crear Posicion</a>
 				<table class="table table-m">
 					<tr>
 						<th>Empresa</th>
@@ -19,9 +20,15 @@
 						<th>Estado</th>
 						<th>Etapa</th>
 						<th>Seniority</th>
+						<th>Resolucion</th>
 						<th>Curriculum</th>
 						<th>Quitar</th>
 					</tr>
+					{% if solicitudes == None %}
+					<td>
+						<h3 align="center">El usuario ingresado no pertenece a la empresa</h3>
+					</td>
+					{% else %}
 					{% for i in solicitudes %}
 						<tr>
 							<td>{{i.empresas}}</td>
@@ -30,6 +37,7 @@
 							<td>{{i.estado}}</td>
 							<td>{{i.etapa}}</td>
 							<td>{{i.seniority}}</td>
+							<td>{{i.resolucion}}</td>
 
 							{% if i.cargar_archivos %}
 							<td><a class="btn btn-primary btn-sm" href="{{i.cargar_archivos.url}}">Descargar</a></td>
@@ -39,6 +47,7 @@
 							<td><a class="btn btn-sm btn-danger" href="{% url 'eliminar' i.id %}">Eliminar</a></td>
 						</tr>
 					{% endfor %}
+					{% endif %}
 				</table>
 			</div>
 		</div>

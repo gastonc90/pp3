@@ -14,13 +14,24 @@ class PosicionForm(ModelForm):
 		}
 
 
+
 class ManagerPosicionForm(ModelForm):
 	class Meta:
 		model = SolicitudDePosicion
 		fields = ['puesto', 'estado', 'nota']
 
 
+
+
 class FormularioIngreso(ModelForm):
 	class Meta:
 		model = SolicitudDePosicion
-		fields = ['id','puesto', 'empresas', 'seniority', 'nombre', 'apellido', 'direccion','email']
+		fields = ['id','puesto', 'empresas', 'seniority', 'nombre', 'apellido', 'direccion','email', 'resolucion']
+
+
+
+
+class FormularioManager(ModelForm):
+	class Meta:
+		model = SolicitudDePosicion
+		fields = ['empresas', 'puesto', 'seniority', 'nota']

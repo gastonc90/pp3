@@ -57,9 +57,11 @@
 				<tr>
                     <th>Id</th>
 					<th>Posicion</th>
+					<th>Empresa</th>
 					<th>Date Orderd</th>
 					<th>Status</th>
 					<th>Etapa</th>
+					<th>Resolucion</th>
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
@@ -69,9 +71,11 @@
 				<tr>
                     <td>{{solicitud.id}}</td>
 					<td>{{solicitud.puesto}}</td>
+					<td>{{solicitud.empresas}}</td>
 					<td>{{solicitud.fecha_de_carga}}</td>
 					<td>{{solicitud.estado}}</td>
 					<td>{{solicitud.etapa}}</td>
+					<td>{{solicitud.resolucion}}</td>
                     <td><a class="btn btn-sm btn-info" href="{% url 'actualizar_posicion' solicitud.id %}">Actualizar</a></td>
                     <td><a class="btn btn-sm btn-danger" href="{% url 'eliminar' solicitud.id %}">Eliminar</a></td>
 				</tr>

@@ -65,6 +65,8 @@ class SolicitudDePosicion(models.Model):
     ETAPAS = (('Administracion', 'Administracion'),
                 ('Aprobacion', 'Aprobacion'),
                 ('Entrevista','Entrevista'),
+                ('Ingresado','Ingresado'),
+                ('Descartado','Descartado'),
     )
 
     SENIORITY = (('Junior', 'Junior'),
@@ -73,12 +75,19 @@ class SolicitudDePosicion(models.Model):
                 ('Gerente','Gerente'),
     )
 
+    RESOLUCION = (('Ingresado','Ingresado'),
+                ('Descartado','Descartado'),
+
+    )
+
+
     manager = models.ForeignKey(Managers, null=True, on_delete=models.SET_NULL)
     puesto = models.ForeignKey(Puestos, null=True, on_delete=models.SET_NULL)
     empresas = models.ForeignKey(Empresas, null=True, on_delete=models.SET_NULL)
     fecha_de_carga = models.DateTimeField(auto_now_add=True, null=True)
     estado = models.CharField(max_length=30, default='Esperando', choices=STATUS)
-    etapa = models.CharField(max_length=30, null=True, choices=ETAPAS)
+    etapa = models.CharField(max_length=30, default='Aprobacion', null=True, choices=ETAPAS)
+    resolucion = models.CharField(max_length=30, default='En Proceso', null=True, choices=RESOLUCION)
     seniority = models.CharField(max_length=30, null=True, choices=SENIORITY)
     nota = models.TextField(max_length=300, default='Escriba información breve de utilidad en torno a la posición')
     cargar_archivos = models.FileField(upload_to="media/", null=True, blank=True)

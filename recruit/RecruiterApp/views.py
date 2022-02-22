@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
-from .forms import PosicionForm, ManagerPosicionForm, FormularioIngreso
+from .forms import PosicionForm, ManagerPosicionForm, FormularioIngreso, FormularioManager
 from .filters import FiltroPosicion
 from django.contrib.auth.decorators import login_required
 from Login.decorator import vistas_autorizadas
@@ -18,14 +18,38 @@ def base(request):
 
 #Dashboard principal del Manager, ver solicitudes de posicion de su empresa.
 @login_required(login_url='login')
-@vistas_autorizadas(allowed_roles=['managers','admin'])
+@vistas_autorizadas(allowed_roles=['managers', 'admin'])
 def SolicitudAlta(request):
-    empresas = request.user.empresas_set.all()
-    solicitudes = empresas[0].solicituddeposicion_set.all()
+    # empresas = request.user.empresas_set.all()
+    # solicitudes = empresas[0].solicituddeposicion_set.all()
 
+    try:
+        empresas = request.user.empresas_set.all()
+        solicitudes = empresas[0].solicituddeposicion_set.all()
+    except Exception as e:
+        empresas = None
+        solicitudes = None
 
     contexto = {'solicitudes':solicitudes, 'empresas':empresas}
     return render(request, 'RecruiterApp/carga_ternas.html', contexto)
+
+
+
+#Crear posición del Manager
+@login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['managers'])
+def SolicitudManager(request):
+
+    form = FormularioManager()
+
+    if request.method == 'POST':
+        form = FormularioManager(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('solicitud_alta')
+
+    contexto = {'form':form}
+    return render(request, 'RecruiterApp/posicion_manager.html', contexto)
 
 
 
@@ -176,9 +200,6 @@ def GestionarAdministracion(request):
 def FormularioIngresos(request, pk):
 
     solicitud = SolicitudDePosicion.objects.get(id=pk)
-    #id_solicitud = solicitud.id
-    #empresa = solicitud.empresas
-    #form = FormularioIngreso()
     form = FormularioIngreso(instance=solicitud)
 
     if request.method == 'POST':
@@ -188,5 +209,4 @@ def FormularioIngresos(request, pk):
             return redirect('administracion')
 
     contexto = {'form':form}
-
     return render(request,'RecruiterApp/ingresos.html', contexto)
