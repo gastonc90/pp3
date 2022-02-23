@@ -64,7 +64,8 @@ def ListarEmpresas(request, pk):
     filtros = FiltroPosicion(request.GET, queryset=solicitudes)
     solicitudes = filtros.qs
 
-    contexto = {'empresas':empresas, 'solicitudes':solicitudes, 'total_solicitudes':total_solicitudes, 'filtros':filtros}
+    contexto = {'empresas':empresas, 'solicitudes':solicitudes, 'total_solicitudes':total_solicitudes,
+     'filtros':filtros}
     return render(request, 'RecruiterApp/empresas.html', contexto)
 
 
@@ -154,7 +155,8 @@ def RecruiterTool(request):
     denegadas = solicitud_posicion.filter(estado='Denegado').count()
 
     contexto = {'solicitud_posicion':solicitud_posicion,
-    'total_posiciones':total_posiciones, 'empresas':empresas, 'aprobadas':aprobadas, 'espera':espera, 'denegadas':denegadas}
+    'total_posiciones':total_posiciones, 'empresas':empresas, 'aprobadas':aprobadas,
+     'espera':espera, 'denegadas':denegadas}
 
     return render(request, 'RecruiterApp/recruiter.html', contexto)
 
@@ -192,6 +194,7 @@ def GestionarAdministracion(request):
     contexto = {'empresas':empresas, 'solicitud_posicion':solicitud_posicion,
     'total_posiciones':total_posiciones, 'aprobadas':aprobadas, 'espera':espera, 'denegadas':denegadas}
     return render(request, 'RecruiterApp/administracion.html', contexto)
+
 
 
 #Ingresar personal

@@ -19,7 +19,6 @@ def RegistroUsuario(request):
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
-            messages = success(request, 'Cuenta creada para' + user)
             redirect ('login')
 
     contexto = {'form':form}
