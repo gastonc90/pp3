@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import *
 from .forms import PosicionForm, ManagerPosicionForm, FormularioIngreso, FormularioManager
@@ -25,23 +25,23 @@ def SolicitudAlta(request):
 
     try:
         empresas = request.user.empresas_set.all()
+        empresa = empresas[0]
         solicitudes = empresas[0].solicituddeposicion_set.all()
     except Exception as e:
-        empresas = None
+        empresa = None
         solicitudes = None
 
-    contexto = {'solicitudes':solicitudes, 'empresas':empresas}
+    contexto = {'solicitudes':solicitudes, 'empresa':empresa}
     return render(request, 'RecruiterApp/carga_ternas.html', contexto)
 
 
 
-#Crear posición del Manager
+#Crear posicion del Manager
 @login_required(login_url='login')
 @vistas_autorizadas(allowed_roles=['managers'])
 def SolicitudManager(request):
 
     form = FormularioManager()
-
     if request.method == 'POST':
         form = FormularioManager(request.POST)
         if form.is_valid():

@@ -34,4 +34,4 @@ class FormularioIngreso(ModelForm):
 class FormularioManager(ModelForm):
 	class Meta:
 		model = SolicitudDePosicion
-		fields = ['empresas', 'puesto', 'seniority', 'nota']
+		fields = ['empresas','puesto', 'seniority', 'nota']

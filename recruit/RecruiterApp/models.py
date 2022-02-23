@@ -7,9 +7,6 @@ User = get_user_model()
 
 
 
-
-
-
 class Empresas(models.Model):
     id = models.BigAutoField(primary_key=True)
     usuario = models.ForeignKey(User, null=True, on_delete=models.SET_NULL )
@@ -20,6 +17,42 @@ class Empresas(models.Model):
 
     def __str__(self):
         return self.nombre_empresa
+
+
+
+
+
+class DepartamentoRecruiter(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=30, default='')
+
+
+    def __str__(self):
+    	return str(self.user)
+
+
+
+
+class DepartamentoGerencia(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=30, default='')
+
+    def __str__(self):
+    	return str(self.nombre)
+
+
+
+
+class DepartamentoAdministracion(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=30, default='')
+
+
+    def __str__(self):
+    	return str(self.nombre)
 
 
 

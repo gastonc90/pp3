@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 
-    'RecruiterApp',
+    'RecruiterApp.apps.RecruiterappConfig',
     'django_filters',
     'Login',
     'crispy_forms'
@@ -97,7 +97,11 @@ DATABASES = {
 
 
 #Files download
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = [os.path.join(ROOT_PATH, 'static')]
 
 
 
@@ -120,6 +124,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'toolrecruit@gmail.com'
+EMAIL_HOST_PASSWORD = 'recruitertool4a!!'
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -132,18 +147,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-MEDIA_URL = '/media/'
-
-STATICFILES_DIRS = [os.path.join(ROOT_PATH, 'static')]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

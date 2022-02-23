@@ -11,7 +11,7 @@
 			<h5  align="center">Ultimas Posiciones</h5>
 			<hr>
 			<div class="card card-body">
-				<a class="btn btn-primary  btn-sm btn-block" href="{% url 'posicion_manager' %}">Crear Posicion</a>
+				<a class="btn btn-primary  btn-sm btn-block" href="{% url 'posicion_manager'  %}">Crear Posicion</a>
 				<table class="table table-m">
 					<tr>
 						<th>Empresa</th>
@@ -26,7 +26,7 @@
 					</tr>
 					{% if solicitudes == None %}
 					<td>
-						<h3 align="center">El usuario ingresado no pertenece a la empresa</h3>
+						<h2 align="center">El usuario ingresado no pertenece a la empresa</h3>
 					</td>
 					{% else %}
 					{% for i in solicitudes %}
