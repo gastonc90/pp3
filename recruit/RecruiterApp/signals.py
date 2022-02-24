@@ -29,6 +29,13 @@ def crear_solicitud(sender, instance, created, **kwargs):
     mail_administracion = administracion[0]
 
 
+    template_solicitud = render_to_string('Email/email_solicitud.html', contexto)
+    template_estado = render_to_string('Email/email_estado.html', contexto)
+    template_etapa = render_to_string('Email/email_etapa.html', contexto)
+    template_resolucion = render_to_string('Email/email_etapa.html', contexto)
+
+
+
     if created:
         try:
             template = render_to_string('Email/email_solicitud.html', contexto)
@@ -49,13 +56,12 @@ def crear_solicitud(sender, instance, created, **kwargs):
 
     else:
         try:
-
-            def EstadoEtapa():
+            def Etapa(template_etapa):
                 template = render_to_string('Email/email_etapa.html', contexto)
 
                 email = EmailMessage(
                     'Notificación de nueva solicitud de Etapa',
-                    template,
+                    template_etapa,
                     settings.EMAIL_HOST_USER,
                     [mail_recruiter, mail_administracion]
 
@@ -64,26 +70,32 @@ def crear_solicitud(sender, instance, created, **kwargs):
                 email.send()
                 print("enviado entrevista")
 
-
             if etapa == 'Entrevista':
-                EstadoEtapa()
+                Etapa(template_etapa)
             if etapa == 'Administracion':
-                EstadoEtapa()
-            if etapa == 'Ingresado':
-                EstadoEtapa()
-            if etapa == 'Descartado':
-                EstadoEtapa()
+                Etapa(template_etapa)
 
+            if estado == 'Aprobado' and etapa == 'Aprobacion':
+                    print("llegue al aprobado")
+                    email = EmailMessage(
+                            'Notificación de nueva solicitud de estado',
+                            template_estado,
+                            settings.EMAIL_HOST_USER,
+                            [mail_recruiter, mail_administracion]
 
+                            )
+                    email.fail_silently='False'
+                    email.send()
+            if estado == 'Denegado' and etapa == 'Aprobacion':
+                    email = EmailMessage(
+                            'Notificación de nueva solicitud de estado',
+                            template_estado,
+                            settings.EMAIL_HOST_USER,
+                            [mail_recruiter, mail_administracion]
 
-
-            else:
-                print("algonofunca")
-
-            # if estado == 'Administracion':
-            #
-            #     template = render_to_string('Email/email_estado.html', contexto)
-
+                            )
+                    email.fail_silently='False'
+                    email.send()
 
         except Exception as e:
                 print(e)
