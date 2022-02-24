@@ -18,7 +18,6 @@ def RegistroUsuario(request):
         form = NuevoUsuario(request.POST)
         if form.is_valid():
             form.save()
-            user = form.cleaned_data.get('username')
             redirect ('login')
 
     contexto = {'form':form}

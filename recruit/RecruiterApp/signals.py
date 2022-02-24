@@ -13,16 +13,26 @@ def crear_solicitud(sender, instance, created, **kwargs):
 
     if created:
         try:
-            email_manager=Managers.email
-            email_recruiter=DepartamentoRecruiter.email
 
-            template = render_to_string('Email/email_solicitud.html')
+            puesto = instance
+            id = instance.id
+            empresa = instance.empresas
+            seniority = seniority
+
+            contexto = {'puesto':puesto, 'id':id, 'empresa':empresa, 'seniority':empresa}
+
+            recruiter = DepartamentoRecruiter.objects.all()
+            mail_recruiter = recruiter[0]
+            administracion = DepartamentoAdministracion.objects.all()
+            mail_administracion = administracion[0]
+
+            template = render_to_string('Email/email_solicitud.html', contexto)
 
             email = EmailMessage(
             'Notificación de nueva solicitud de puesto',
             template,
             settings.EMAIL_HOST_USER,
-            ['milagrosrecruiting@gmail.com']
+            [mail_recruiter, mail_administracion]
 
             )
 
@@ -31,3 +41,20 @@ def crear_solicitud(sender, instance, created, **kwargs):
 
         except Exception as e:
             print(e)
+
+    else:
+        try:
+
+            puesto = instance
+            id = instance.id
+            empresa = instance.empresas
+            seniority = seniority
+
+
+
+
+
+
+
+        except Exception as e:
+            raise

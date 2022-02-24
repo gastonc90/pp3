@@ -29,7 +29,7 @@ class DepartamentoRecruiter(models.Model):
 
 
     def __str__(self):
-    	return str(self.user)
+    	return self.email
 
 
 
@@ -40,7 +40,7 @@ class DepartamentoGerencia(models.Model):
     email = models.EmailField(max_length=30, default='')
 
     def __str__(self):
-    	return str(self.nombre)
+    	return self.email
 
 
 
@@ -52,7 +52,7 @@ class DepartamentoAdministracion(models.Model):
 
 
     def __str__(self):
-    	return str(self.nombre)
+    	return self.email
 
 
 
