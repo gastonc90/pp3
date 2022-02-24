@@ -98,8 +98,7 @@ class SolicitudDePosicion(models.Model):
     ETAPAS = (('Administracion', 'Administracion'),
                 ('Aprobacion', 'Aprobacion'),
                 ('Entrevista','Entrevista'),
-                ('Ingresado','Ingresado'),
-                ('Descartado','Descartado'),
+                
     )
 
     SENIORITY = (('Junior', 'Junior'),

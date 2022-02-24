@@ -84,8 +84,9 @@ def DashboardGerencia(request):
     denegadas = solicitud_posicion.filter(estado='Denegado').count()
 
     contexto = {'solicitud_posicion':solicitud_posicion,
-    'total_posiciones':total_posiciones, 'aprobadas':aprobadas,
-    'denegadas':denegadas, 'espera':espera, 'empresas':empresas}
+                'total_posiciones':total_posiciones, 'aprobadas':aprobadas,
+                'denegadas':denegadas, 'espera':espera, 'empresas':empresas}
+
     return render(request, 'RecruiterApp/dashboard_gerencia.html',contexto)
 
 
@@ -155,8 +156,8 @@ def RecruiterTool(request):
     denegadas = solicitud_posicion.filter(estado='Denegado').count()
 
     contexto = {'solicitud_posicion':solicitud_posicion,
-    'total_posiciones':total_posiciones, 'empresas':empresas, 'aprobadas':aprobadas,
-     'espera':espera, 'denegadas':denegadas}
+                'total_posiciones':total_posiciones, 'empresas':empresas, 'aprobadas':aprobadas,
+                'espera':espera, 'denegadas':denegadas}
 
     return render(request, 'RecruiterApp/recruiter.html', contexto)
 
@@ -192,7 +193,9 @@ def GestionarAdministracion(request):
     denegadas = solicitud_posicion.filter(estado='Denegado').count()
 
     contexto = {'empresas':empresas, 'solicitud_posicion':solicitud_posicion,
-    'total_posiciones':total_posiciones, 'aprobadas':aprobadas, 'espera':espera, 'denegadas':denegadas}
+                'total_posiciones':total_posiciones, 'aprobadas':aprobadas,
+                'espera':espera, 'denegadas':denegadas}
+
     return render(request, 'RecruiterApp/administracion.html', contexto)
 
 
