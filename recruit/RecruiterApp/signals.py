@@ -17,7 +17,7 @@ def crear_solicitud(sender, instance, created, **kwargs):
             puesto = instance
             id = instance.id
             empresa = instance.empresas
-            seniority = seniority
+            seniority = instance.seniority
 
             contexto = {'puesto':puesto, 'id':id, 'empresa':empresa, 'seniority':empresa}
 
@@ -40,15 +40,50 @@ def crear_solicitud(sender, instance, created, **kwargs):
             email.send()
 
         except Exception as e:
-            print(e)
+            raise e
 
     else:
         try:
 
             puesto = instance
             id = instance.id
+            print(id)
             empresa = instance.empresas
-            seniority = seniority
+            seniority = instance.seniority
+            estado = instance.estado
+            print(estado)
+            etapa = instance.etapa
+            print(etapa)
+            resolucion = instance.resolucion
+
+            contexto = {'puesto':puesto, 'id':id, 'empresa':empresa, 'seniority':empresa,
+            'estado':estado, 'nueva_etapa':etapa}
+
+            recruiter = DepartamentoRecruiter.objects.all()
+            mail_recruiter = recruiter[0]
+            administracion = DepartamentoAdministracion.objects.all()
+            mail_administracion = administracion[0]
+
+            if etapa == 'Entrevista':
+
+                template = render_to_string('Email/email_estado.html', contexto)
+
+                email = EmailMessage(
+                'Notificación de nueva solicitud de puesto',
+                template,
+                settings.EMAIL_HOST_USER,
+                [mail_recruiter, mail_administracion]
+
+                )
+
+                email.fail_silently='False'
+                email.send()
+            else:
+                print("no ha pasado nada")
+
+        except Exception as e:
+                print(e)
+
 
 
 
