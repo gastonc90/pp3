@@ -5,7 +5,8 @@ from .forms import PosicionForm, ManagerPosicionForm, FormularioIngreso, Formula
 from .filters import FiltroPosicion
 from django.contrib.auth.decorators import login_required
 from Login.decorator import vistas_autorizadas
-
+import datetime
+import csv
 # Create your views here.
 
 @login_required(login_url='login')
@@ -216,3 +217,23 @@ def FormularioIngresos(request, pk):
 
     contexto = {'form':form}
     return render(request,'RecruiterApp/ingresos.html', contexto)
+
+
+
+@login_required(login_url='login')
+@vistas_autorizadas(allowed_roles=['administracion','admin'])
+def exportar_csv(request):
+    solicitudes = SolicitudDePosicion.objects.all()
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-disposition'] = 'attachment; filename=reporte_recruiterapp' + \
+    str(datetime.datetime.now())+'.csv'
+
+    writer = csv.writer(response)
+    writer.writerow(['ID','POSICION','EMPRESA','FECHA_ORDEN','ESTADO','ETAPA','RESOLUCION'])
+
+    for solicitud in solicitudes:
+        writer.writerow([solicitud.id,solicitud.puesto,solicitud.empresas,solicitud.fecha_de_carga,
+                        solicitud.estado,solicitud.etapa,solicitud.resolucion])
+
+    return response

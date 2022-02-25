@@ -14,10 +14,17 @@
         {% include 'RecruiterApp/status.html' %}
 
 
-        <br>
+
+
+<div class="card-button sm">
+    <a class="btn btn-sm btn-info ml-auto" href="{% url 'exportar_csv' %}">Descargar CSV</a>
+</div>
+
+<br>
+<br>
 
 <div class="row">
-	<div class="col-md-5">
+    <div class="col-md-5">
 		<h5 align="left">Clientes</h5>
 		<hr>
 		<div class="card card-body">
