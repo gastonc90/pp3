@@ -7,11 +7,28 @@ from django.contrib.auth.decorators import login_required
 from Login.decorator import vistas_autorizadas
 import datetime
 import csv
+from django.utils import timezone
+from datetime import datetime, date, timedelta
 # Create your views here.
 
 @login_required(login_url='login')
 def base(request):
-    return render(request,'RecruiterApp/base.html')
+
+    empresas = Empresas.objects.all()
+    solicitud_posicion = SolicitudDePosicion.objects.all()
+
+    total_solicitudes = solicitud_posicion.count()
+
+    aprobadas = solicitud_posicion.filter(estado='Aprobado').count()
+    espera = solicitud_posicion.filter(estado='Esperando').count()
+    denegadas = solicitud_posicion.filter(estado='Denegado').count()
+    ingresados = solicitud_posicion.filter(resolucion='Ingresado').count()
+
+
+    contexto = {'aprobadas':aprobadas,'denegadas':denegadas,
+                'total_solicitudes':total_solicitudes, 'ingresados':ingresados}
+
+    return render(request,'RecruiterApp/base.html', contexto)
 
 
 

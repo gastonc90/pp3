@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 {% load static %}
+
+
+
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
@@ -7,6 +10,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}"/>
+        <script src="{% static '/js/apexcharts.js' %}"></script>
+        <link href="{% static '/css/apexcharts.css' %}" rel="stylesheet" />
 
     </head>
     <body>
@@ -14,7 +19,197 @@
         {% include 'RecruiterApp/navbar.html' %}
 
         {% block content %}
-        <h2>Bienvenido a RECRUIT APP</h2>
+
+
+        <div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body sm">
+                            <div id="chart2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body sm">
+                            <div id="chart3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% block css %}
+
+
+        <style>
+
+        td {
+            text-align: center;
+            vertical-align: middle;
+            }
+
+        </style>
+
+
+        {% endblock %}
+
+
+        {% block scripts %}
+
+
+
+        <script type="text/javascript">
+
+        var options = {
+          series: [{{aprobadas|safe}},{{denegadas|safe}}],
+          chart: {
+          width: 380,
+          type: 'pie',
+        },
+        labels: ['Aprobadas', 'Denegadas'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart2"), options);
+        chart.render();
+
+        var options = {
+          series: [{
+          name: 'Solicitudes',
+          data: [{{total_solicitudes|safe}}]
+        }, {
+          name: 'Aprobadas',
+          data: [{{aprobadas|safe}}]
+        }, {
+          name: 'Denegadas',
+          data: [{{denegadas|safe}}]
+        }],
+          chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '15%',
+            endingShape: 'rounded'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: ['Feb'],
+        },
+        yaxis: {
+          title: {
+            text: 'Solicitudes'
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + " solicitudes"
+            }
+          }
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+        var options = {
+         series: [{{ingresados|safe}}],
+         chart: {
+         height: 350,
+         type: 'radialBar',
+         offsetY: -10
+       },
+       plotOptions: {
+         radialBar: {
+           startAngle: -135,
+           endAngle: 135,
+           dataLabels: {
+             name: {
+               fontSize: '16px',
+               color: undefined,
+               offsetY: 120
+             },
+             value: {
+               offsetY: 76,
+               fontSize: '22px',
+               color: undefined,
+               formatter: function (val) {
+                 return val + "%";
+               }
+             }
+           }
+         }
+       },
+       fill: {
+         type: 'gradient',
+         gradient: {
+             shade: 'dark',
+             shadeIntensity: 0.15,
+             inverseColors: false,
+             opacityFrom: 1,
+             opacityTo: 1,
+             stops: [0, 50, 65, 91]
+         },
+       },
+       stroke: {
+         dashArray: 4
+       },
+       labels: ['Porcentaje de Ingresos'],
+       };
+
+       var chart = new ApexCharts(document.querySelector("#chart3"), options);
+       chart.render();
+
+
+
+        </script>
+
+        {% endblock %}
+
+
 
         {% endblock %}
     </body>

@@ -11,17 +11,9 @@ from django.template.loader import render_to_string
 @receiver(post_save, sender=SolicitudDePosicion)
 def crear_solicitud(sender, instance, created, **kwargs):
 
-    puesto = instance
-    id = instance.id
-    empresa = instance.empresas
-    seniority = instance.seniority
-    estado = instance.estado
-    etapa = instance.etapa
-    resolucion = instance.resolucion
-    archivos = instance.cargar_archivos
 
-    contexto = {'puesto':puesto, 'id':id, 'empresa':empresa, 'seniority':empresa,
-                'estado':estado, 'nueva_etapa':etapa, 'archivos':archivos}
+    contexto = {'instance':instance}
+
 
     recruiter = DepartamentoRecruiter.objects.all()
     mail_recruiter = recruiter[0]
@@ -32,7 +24,7 @@ def crear_solicitud(sender, instance, created, **kwargs):
     template_solicitud = render_to_string('Email/email_solicitud.html', contexto)
     template_estado = render_to_string('Email/email_estado.html', contexto)
     template_etapa = render_to_string('Email/email_etapa.html', contexto)
-    template_resolucion = render_to_string('Email/email_etapa.html', contexto)
+    template_resolucion = render_to_string('Email/email_resolucion.html', contexto)
 
 
 
@@ -60,7 +52,7 @@ def crear_solicitud(sender, instance, created, **kwargs):
                 template = render_to_string('Email/email_etapa.html', contexto)
 
                 email = EmailMessage(
-                    'Notificación de nueva solicitud de Etapa',
+                    'Notificación de nueva solicitud de etapa',
                     template_etapa,
                     settings.EMAIL_HOST_USER,
                     [mail_recruiter, mail_administracion]
