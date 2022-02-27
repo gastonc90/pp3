@@ -5,10 +5,9 @@ from .forms import PosicionForm, ManagerPosicionForm, FormularioIngreso, Formula
 from .filters import FiltroPosicion
 from django.contrib.auth.decorators import login_required
 from Login.decorator import vistas_autorizadas
-import datetime
 import csv
 from django.utils import timezone
-from datetime import datetime, date, timedelta
+from datetime import datetime
 # Create your views here.
 
 @login_required(login_url='login')
