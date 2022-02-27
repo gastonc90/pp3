@@ -23,10 +23,19 @@ def base(request):
     espera = solicitud_posicion.filter(estado='Esperando').count()
     denegadas = solicitud_posicion.filter(estado='Denegado').count()
     ingresados = solicitud_posicion.filter(resolucion='Ingresado').count()
+    junior = solicitud_posicion.filter(seniority='Junior').count()
+    semi_senior = solicitud_posicion.filter(seniority='Semi Senior').count()
+    senior = solicitud_posicion.filter(seniority='Senior').count()
+    gerente = solicitud_posicion.filter(seniority='Gerente').count()
 
+
+    # for empresa in empresas:
+    #     empresa += "empresa"
 
     contexto = {'aprobadas':aprobadas,'denegadas':denegadas,
-                'total_solicitudes':total_solicitudes, 'ingresados':ingresados}
+                'total_solicitudes':total_solicitudes, 'ingresados':ingresados,
+                'junior':junior, 'semi_senior':semi_senior, 'senior':senior,
+                'gerente':gerente}
 
     return render(request,'RecruiterApp/base.html', contexto)
 
@@ -244,7 +253,7 @@ def exportar_csv(request):
 
     response = HttpResponse(content_type='text/csv')
     response['Content-disposition'] = 'attachment; filename=reporte_recruiterapp' + \
-    str(datetime.datetime.now())+'.csv'
+    str(datetime.now())+'.csv'
 
     writer = csv.writer(response)
     writer.writerow(['ID','POSICION','EMPRESA','FECHA_ORDEN','ESTADO','ETAPA','RESOLUCION'])

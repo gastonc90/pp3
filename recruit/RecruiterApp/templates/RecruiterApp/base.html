@@ -57,6 +57,19 @@
             </div>
         </div>
 
+        <div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body sm">
+                            <div id="chart4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+
         {% block css %}
 
 
@@ -202,6 +215,63 @@
 
        var chart = new ApexCharts(document.querySelector("#chart3"), options);
        chart.render();
+
+
+       var options = {
+                 series: [{
+                 name: 'Junior',
+                 data: [{{junior|safe}}]
+               }, {
+                 name: 'Semi Senior',
+                 data: [{{semi_senior|safe}}]
+               }, {
+                 name: 'Senior',
+                 data: [{{senior}}]
+               }, {
+                 name: 'Gerente',
+                 data: [{{gerente|safe}}]
+               }],
+                 chart: {
+                 type: 'bar',
+                 height: 350,
+                 stacked: true,
+                 stackType: '100%'
+               },
+               plotOptions: {
+                 bar: {
+                   horizontal: true,
+                 },
+               },
+               stroke: {
+                 width: 1,
+                 colors: ['#fff']
+               },
+               title: {
+                 text: 'Solicitudes por Seniority'
+               },
+               xaxis: {
+                 categories: [2022],
+               },
+               tooltip: {
+                 y: {
+                   formatter: function (val) {
+                     return val + " posiciones"
+                   }
+                 }
+               },
+               fill: {
+                 opacity: 1
+
+               },
+               legend: {
+                 position: 'top',
+                 horizontalAlign: 'left',
+                 offsetX: 40
+               }
+               };
+
+               var chart = new ApexCharts(document.querySelector("#chart4"), options);
+               chart.render();
 
 
 
