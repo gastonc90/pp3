@@ -4,13 +4,23 @@
 
 <<!DOCTYPE html>
 <html lang="en" dir="ltr">
+
     <body>
         {% block content %}
         {% include 'RecruiterApp/status.html' %}
-        <br>
+
+
+    <br>
+
+
+    <div>
     <div class="row">
-        <a class="btn btn-sm btn-info" href="{% url 'exportar_csv' %}">Descargar CSV</a>
+        <div class="col-lg-6 text-right" >
+        <a class="btn btn-sm btn-dark" href="{% url 'exportar_csv' %}">Descargar CSV</a>
     </div>
+    </div>
+
+
     <br>
     <div class="col-md-7">
         <h5  align="left">Ultimas Posiciones</h5>
@@ -54,4 +64,5 @@
 </div>
         {% endblock %}
     </body>
+
 </html>

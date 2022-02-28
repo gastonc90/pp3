@@ -13,6 +13,8 @@
         <script src="{% static '/js/apexcharts.js' %}"></script>
         <link href="{% static '/css/apexcharts.css' %}" rel="stylesheet" />
 
+
+
     </head>
     <body>
 
@@ -20,6 +22,41 @@
 
         {% block content %}
 
+
+
+        <div>
+            <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body sm" style="margin-bottom:8.0em;">
+                                <div id="chart2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body sm">
+                                <div id="chart3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body sm">
+                                <div id="chart5"></div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body sm">
+                            <div id="chart4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
 
         <div>
             <div class="row">
@@ -33,42 +70,9 @@
             </div>
         </div>
 
-        <div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body sm">
-                            <div id="chart2"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body sm">
-                            <div id="chart3"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body sm">
-                            <div id="chart4"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
+
 
         {% block css %}
 
@@ -95,7 +99,7 @@
         var options = {
           series: [{{aprobadas|safe}},{{denegadas|safe}}],
           chart: {
-          width: 380,
+          width: 400,
           type: 'pie',
         },
         labels: ['Aprobadas', 'Denegadas'],
@@ -117,7 +121,7 @@
 
         var options = {
           series: [{
-          name: 'Solicitudes',
+          name: 'Total Solicitudes',
           data: [{{total_solicitudes|safe}}]
         }, {
           name: 'Aprobadas',
@@ -128,12 +132,12 @@
         }],
           chart: {
           type: 'bar',
-          height: 350
+          height: 250
         },
         plotOptions: {
           bar: {
             horizontal: false,
-            columnWidth: '15%',
+            columnWidth: '35%',
             endingShape: 'rounded'
           },
         },
@@ -210,11 +214,13 @@
        stroke: {
          dashArray: 4
        },
-       labels: ['Porcentaje de Ingresos'],
+       labels: ['Ratio de Ingresos'],
        };
 
        var chart = new ApexCharts(document.querySelector("#chart3"), options);
+       var charter = new ApexCharts(document.querySelector("#chart5"), options);
        chart.render();
+       charter.render();
 
 
        var options = {
@@ -282,5 +288,6 @@
 
 
         {% endblock %}
+        <script {% static '/js/app.js' %}></script>
     </body>
 </html>

@@ -13,28 +13,14 @@
         {% block content %}
         {% include 'RecruiterApp/status.html' %}
 
-
+<br>
+<div>
 <div class="row">
-
-    <div class"col-md-3">
-
-    </div>
-    <div class"col-md-3">
-
-    </div>
-    <div class"col-md-3">
-        <div class="card">
-            <a class="btn btn-sm btn-info ml-auto" href="{% url 'exportar_csv' %}">Descargar CSV</a>
-        </div>
-    </div>
-    <div class"col-md-3">
-
+    <div class="col-lg-10 text-right" >
+        <a class="btn btn-sm btn-dark" href="{% url 'exportar_csv' %}">Descargar CSV</a>
     </div>
 </div>
-
-
-<br>
-<br>
+</div>
 
 <div class="row">
     <div class="col-md-5">
