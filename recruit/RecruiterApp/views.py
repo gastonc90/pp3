@@ -28,9 +28,6 @@ def base(request):
     gerente = solicitud_posicion.filter(seniority='Gerente').count()
 
 
-    # for empresa in empresas:
-    #     empresa += "empresa"
-
     contexto = {'aprobadas':aprobadas,'denegadas':denegadas,
                 'total_solicitudes':total_solicitudes, 'ingresados':ingresados,
                 'junior':junior, 'semi_senior':semi_senior, 'senior':senior,
