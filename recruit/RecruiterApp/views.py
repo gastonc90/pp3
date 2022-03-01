@@ -63,6 +63,10 @@ def SolicitudAlta(request):
     except Exception as e:
         empresa = None
         solicitudes = None
+        total_solicitudes = None
+        sol_aprob = None
+        sol_den = None
+        sol_esp = None
 
     contexto = {'solicitudes':solicitudes, 'empresa':empresa,
                 'total_solicitudes':total_solicitudes, 'sol_aprob':sol_aprob,

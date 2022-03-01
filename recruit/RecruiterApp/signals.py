@@ -12,6 +12,8 @@ from django.template.loader import render_to_string
 def crear_solicitud(sender, instance, created, **kwargs):
 
 
+
+
     contexto = {'instance':instance}
 
 
@@ -62,12 +64,12 @@ def crear_solicitud(sender, instance, created, **kwargs):
                 email.send()
                 print("enviado entrevista")
 
-            if etapa == 'Entrevista':
+            if instance.etapa == 'Entrevista':
                 Etapa(template_etapa)
-            if etapa == 'Administracion':
+            if instance.etapa == 'Administracion':
                 Etapa(template_etapa)
 
-            if estado == 'Aprobado' and etapa == 'Aprobacion':
+            if instance.estado == 'Aprobado' and instance.etapa == 'Aprobacion':
                     print("llegue al aprobado")
                     email = EmailMessage(
                             'Notificación de nueva solicitud de estado',
@@ -78,7 +80,7 @@ def crear_solicitud(sender, instance, created, **kwargs):
                             )
                     email.fail_silently='False'
                     email.send()
-            if estado == 'Denegado' and etapa == 'Aprobacion':
+            if instance.estado == 'Denegado' and instance.etapa == 'Aprobacion':
                     email = EmailMessage(
                             'Notificación de nueva solicitud de estado',
                             template_estado,
@@ -88,6 +90,30 @@ def crear_solicitud(sender, instance, created, **kwargs):
                             )
                     email.fail_silently='False'
                     email.send()
+
+            if instance.resolucion == 'Ingresado' and instance.etapa == 'Administracion':
+                    email = EmailMessage(
+                            'Notificación de nueva solicitud de resolucion',
+                            template_resolucion,
+                            settings.EMAIL_HOST_USER,
+                            [mail_recruiter, mail_administracion]
+
+                            )
+                    email.fail_silently='False'
+                    email.send()
+
+            if instance.resolucion == 'Descartado' and instance.etapa == 'Administracion':
+                    email = EmailMessage(
+                            'Notificación de nueva solicitud de resolucion',
+                            template_resolucion,
+                            settings.EMAIL_HOST_USER,
+                            [mail_recruiter, mail_administracion]
+
+                            )
+                    email.fail_silently='False'
+                    email.send()
+
+
 
         except Exception as e:
                 print(e)
