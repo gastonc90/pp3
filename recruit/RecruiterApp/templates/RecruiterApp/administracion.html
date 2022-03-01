@@ -34,6 +34,7 @@
                     <th>Estado</th>
                     <th>Etapa</th>
                     <th>Seniority</th>
+                    <th>Resolucion</th>
                     <th>Curriculum</th>
                     <th>Ingresar</th>
                     <th>Quitar</th>
@@ -46,8 +47,9 @@
                         <td>{{i.estado}}</td>
                         <td>{{i.etapa}}</td>
                         <td>{{i.seniority}}</td>
+                        <td>{{i.resolucion}}</td>
 
-                        {% if i.cargar_archivos %}
+                        {% if i.cargar_archivos and i.resolucion == 'En Proceso' %}
                         <td><a class="btn btn-primary btn-sm" href="{{i.cargar_archivos.url}}">Descargar</a></td>
                         <td><a class="btn btn-primary btn-sm" href="{% url 'ingresos' i.id %}">Ingresar</a></td>
                         {% else %}
