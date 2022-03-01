@@ -4,7 +4,61 @@
 <html lang="en" dir="ltr">
 
 {% block content %}
-{% include 'RecruiterApp/status.html' %}
+<br>
+
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-black  mb-3" id="total-posiciones">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Total Posiciones</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{total_solicitudes}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-black  mb-3" id="posiciones-cubiertas">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Posiciones Aprobadas</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{sol_aprob}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-black  mb-3" id="posiciones-pendientes">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Posiciones Pendientes</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{sol_esp}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-black  mb-3" id="posiciones-pendientes">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Posiciones Denegadas</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{sol_den}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
 	<body>
 
 		<div class="col-md-7">

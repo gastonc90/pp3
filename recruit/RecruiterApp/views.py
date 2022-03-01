@@ -50,11 +50,19 @@ def SolicitudAlta(request):
         empresas = request.user.empresas_set.all()
         empresa = empresas[0]
         solicitudes = empresas[0].solicituddeposicion_set.all()
+        total_solicitudes = solicitudes.count()
+        sol_aprob = solicitudes.filter(estado='Aprobado').count()
+        sol_den = solicitudes.filter(estado='Denegado').count()
+        sol_esp = solicitudes.filter(estado='Espera').count()
+
+
     except Exception as e:
         empresa = None
         solicitudes = None
 
-    contexto = {'solicitudes':solicitudes, 'empresa':empresa}
+    contexto = {'solicitudes':solicitudes, 'empresa':empresa,
+                'total_solicitudes':total_solicitudes, 'sol_aprob':sol_aprob,
+                 'sol_den':sol_den, 'sol_esp':sol_esp}
     return render(request, 'RecruiterApp/carga_ternas.html', contexto)
 
 

@@ -24,7 +24,7 @@ class Empresas(models.Model):
 
 class DepartamentoRecruiter(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     email = models.EmailField(max_length=30, default='')
 
 
@@ -36,7 +36,7 @@ class DepartamentoRecruiter(models.Model):
 
 class DepartamentoGerencia(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     email = models.EmailField(max_length=30, default='')
 
     def __str__(self):
@@ -47,7 +47,7 @@ class DepartamentoGerencia(models.Model):
 
 class DepartamentoAdministracion(models.Model):
     id = models.BigAutoField(primary_key=True)
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     email = models.EmailField(max_length=30, default='')
 
 
@@ -98,7 +98,7 @@ class SolicitudDePosicion(models.Model):
     ETAPAS = (('Administracion', 'Administracion'),
                 ('Aprobacion', 'Aprobacion'),
                 ('Entrevista','Entrevista'),
-                
+
     )
 
     SENIORITY = (('Junior', 'Junior'),
