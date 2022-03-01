@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="card">
-                            <div class="card-body sm">
+                            <div class="card-body sm" style="margin-bottom:8.0em;">
                                 <div id="chart5"></div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
           data: [{{total_solicitudes|safe}}]
         }, {
           name: 'Aprobadas',
-          data: [{{aprobadas|safe}}]
+          data: [{{aprobadas|safe}},'0']
         }, {
           name: 'Denegadas',
           data: [{{denegadas|safe}}]
@@ -150,7 +150,7 @@
           colors: ['transparent']
         },
         xaxis: {
-          categories: ['Feb'],
+          categories: ['Feb','Mar'],
         },
         yaxis: {
           title: {
@@ -218,9 +218,8 @@
        };
 
        var chart = new ApexCharts(document.querySelector("#chart3"), options);
-       var charter = new ApexCharts(document.querySelector("#chart5"), options);
        chart.render();
-       charter.render();
+
 
 
        var options = {
@@ -279,6 +278,28 @@
                var chart = new ApexCharts(document.querySelector("#chart4"), options);
                chart.render();
 
+               var options = {
+                  series: [{{etapa_administracion|safe}}, {{etapa_aprobacion|safe}},{{etapa_entrevista|safe}}],
+                  chart: {
+                  width: 411,
+                  type: 'pie',
+                },
+                labels: ['Administracion', 'Aprobacion', 'Entrevista'],
+                responsive: [{
+                  breakpoint: 480,
+                  options: {
+                    chart: {
+                      width: 200
+                    },
+                    legend: {
+                      position: 'bottom'
+                    }
+                  }
+                }]
+                };
+
+                var chart = new ApexCharts(document.querySelector("#chart5"), options);
+                chart.render();
 
 
         </script>

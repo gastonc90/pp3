@@ -26,13 +26,17 @@ def base(request):
     semi_senior = solicitud_posicion.filter(seniority='Semi Senior').count()
     senior = solicitud_posicion.filter(seniority='Senior').count()
     gerente = solicitud_posicion.filter(seniority='Gerente').count()
+    etapa_administracion = solicitud_posicion.filter(etapa='Administracion').count()
+    etapa_aprobacion = solicitud_posicion.filter(etapa='Aprobacion').count()
+    etapa_entrevista = solicitud_posicion.filter(etapa='Entrevista').count()
+
 
 
     contexto = {'aprobadas':aprobadas,'denegadas':denegadas,
                 'total_solicitudes':total_solicitudes, 'ingresados':ingresados,
                 'junior':junior, 'semi_senior':semi_senior, 'senior':senior,
-                'gerente':gerente}
-
+                'gerente':gerente, 'etapa_administracion':etapa_administracion,
+                'etapa_aprobacion':etapa_aprobacion, 'etapa_entrevista':etapa_entrevista}
     return render(request,'RecruiterApp/base.html', contexto)
 
 
