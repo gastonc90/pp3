@@ -46,27 +46,27 @@ $ cd recruiter
 recruiter $ virtualenv 'nombre del entorno'
 ```
 
-_Descargar el repositorio dentro de la carpeta. Dejar únicamente la carpeta "recruit" eliminando el resto.
+_Descargar el repositorio dentro de la carpeta creada en el paso anterior. Dejar únicamente la carpeta "recruit" eliminando el resto.
 
 ```
-recruiter $ git clone https://github.com/gastonc90/pp3/
+recruiter/nombredelentorno $ git clone https://github.com/gastonc90/pp3/
 ```
 _Activar el entorno virtual_
 
 ```
-user/recruiter$ source bin/activate
+recruiter/nombredelentorno$ source bin/activate
 ```
 
 _Instalar requeriments.txt_
 
 ```
-(nombredelentorno)user/recruiter$ pip3 install -r requirements.txt
+(nombredelentorno)recruiter/nombredelentorno$ pip3 install -r requirements.txt
 ```
 
 _Iniciar el servidor desde la carpeta descargada del repositorio_
 
 ```
-(nombredelentorno)user/recruiter/recruit$ python3 manage.py runserver
+(nombredelentorno)recruiter/nombredelentorno/recruit$ python3 manage.py runserver
 ```
 
 _Lo siguiente es crear una base de datos en Postgres y utilizar esa información para modificar la conexión con la base de datos desde Django_
