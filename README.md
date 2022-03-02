@@ -33,19 +33,23 @@ Si tiene Windows u otro sistema le recomendamos utilizar una máquina virtual o 
 _Crear una carpeta para el proyecto _
 
 ```
-mkdir recruiter
+$ mkdir recruiter
 ```
 
 _Crear un entorno virtual dentro de la carpeta seleccionada_
 
 ```
-cd recruiter && virtualenv "nombre del entorno"
+$ cd recruiter 
 ```
 
-_Descargar el repositorio dentro de la carpeta, solo la carpeta recruit (pero si en la mía :D)
+```
+recruiter $ virtualenv 'nombre del entorno'
+```
+
+_Descargar el repositorio dentro de la carpeta. Dejar únicamente la carpeta "recruit" eliminando el resto.
 
 ```
-git clone https://github.com/gastonc90/pp3/
+recruiter $ git clone https://github.com/gastonc90/pp3/
 ```
 _Activar el entorno virtual_
 
@@ -75,7 +79,7 @@ _Lo siguiente es crear una base de datos en Postgres y utilizar esa información
 
 ## Ejecutando las pruebas ⚙️
 
-_Cualquiera es libre de hacer deshacer dentro de su propio sistema, el proyecto aún está en fase de desarrollo_
+_Cualquiera es libre de hacer o deshacer *dentro de su propio sistema*, el proyecto aún está en fase de desarrollo_
 
 
 
@@ -106,12 +110,3 @@ _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios
 * **Gastón Cejas** - *Documentación* - [gastonc90](https://github.com/gastonc90/)
 
 todo mío
-
-
-
-## Expresiones de Gratitud 🎁
-
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo. 
-* Da las gracias públicamente 🤓.
-* etc.
