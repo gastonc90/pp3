@@ -108,5 +108,3 @@ _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios
 
 * **Gastón Cejas** - *Trabajo Inicial* - [gastonc90](https://github.com/gastonc90/)
 * **Gastón Cejas** - *Documentación* - [gastonc90](https://github.com/gastonc90/)
-
-todo mío
