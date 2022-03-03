@@ -46,7 +46,7 @@ $ cd recruiter
 recruiter $ virtualenv 'nombre del entorno'
 ```
 
-_Descargar el repositorio dentro de la carpeta creada en el paso anterior. Dejar únicamente la carpeta "recruit" eliminando el resto.
+_Descargar el repositorio dentro de la carpeta creada en el paso anterior.
 
 ```
 recruiter/nombredelentorno $ git clone https://github.com/gastonc90/pp3/
