@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Descargar PDF</title>
+
+        <style>
+            @page:{
+                size:"A4";
+                margin:2.5cm 1.5cm 3.5cm 1.5cm;
+
+                @top-center:{
+                    content:"Recruit IT"
+                }
+
+                @bottom-right:{
+                    content:"Página" counter(page) " de " counter(pages);
+                }
+
+            }
+        </style>
+    </head>
+    <body>
+        <div class="col-md-7">
+            <h5  align="left">Posiciones Ingresadas</h5>
+            <hr>
+            <div class="card card-body sm">
+                <table   "class="table table-m">
+                    <tr>
+                        <th>Empresa</th>
+                        <th>Id</th>
+                        <th>Posicion</th>
+                        <th>Estado</th>
+                        <th>Etapa</th>
+                        <th>Seniority</th>
+                        <th>Resolucion</th>
+                        <th>Fecha</th>
+                    </tr>
+                    {% for i in solicitud_posicion %}
+                        <tr>
+                            <td>{{i.empresas.nombre_empresa}}</td>
+                            <td>{{i.id}}</td>
+                            <td>{{i.puesto}}</td>
+                            <td>{{i.estado}}</td>
+                            <td>{{i.etapa}}</td>
+                            <td>{{i.seniority}}</td>
+                            <td>{{i.fecha_de_carga}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+    </body>
+</html>
